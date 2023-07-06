@@ -7,21 +7,29 @@
  */
 unsigned int binary_to_uint(const char *b)
 {
-unsigned int binary_to_uint(const char *b)
-{
-unsigned int a, v = 0;
+	unsigned int ui;
+	int len, base_two;
 
-if (!b)
-return (0);
+	if (!b)
+		return (0);
 
-for (a = 0; b[a] != '\0'; a++)
-{
-if (b[a] != '0' && b[a] != '1')
-return (0);
-if (b[a] == '1')
-v = v * 2 + 1;
-else
-v = v * 2 + 0;
-}
-return (v);
+	ui = 0;
+
+	for (len = 0; b[len] != '\0'; len++)
+		;
+
+	for (len--, base_two = 1; len >= 0; len--, base_two *= 2)
+	{
+		if (b[len] != '0' && b[len] != '1')
+		{
+			return (0);
+		}
+
+		if (b[len] & 1)
+		{
+			ui += base_two;
+		}
+	}
+
+	return (ui);
 }
